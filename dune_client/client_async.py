@@ -113,7 +113,7 @@ class AsyncDuneClient(BaseDuneClient):
         try:
             # Some responses can be decoded and converted to DuneErrors
             response_json = await response.json()
-            self.logger.debug(f"received response {response_json}")
+            self.logger.debug("Received a JSON response with status %s", response.status)
         except ContentTypeError as err:
             # Others can't. Only raise HTTP error for not decodable errors
             response.raise_for_status()

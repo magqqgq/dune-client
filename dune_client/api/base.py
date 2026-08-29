@@ -144,7 +144,7 @@ class BaseRouter(BaseDuneClient):
         try:
             # Some responses can be decoded and converted to DuneErrors
             response_json = response.json()
-            self.logger.debug(f"received response {response_json}")
+            self.logger.debug("Received a JSON response with status %s", response.status_code)
         except JSONDecodeError as err:
             # Others can't. Only raise HTTP error for not decodable errors
             response.raise_for_status()
@@ -195,7 +195,7 @@ class BaseRouter(BaseDuneClient):
     ) -> Any:
         """Generic interface for the POST method of a Dune API request"""
         url = self._route_url(route)
-        self.logger.debug(f"POST received input url={url}, params={params}")
+        self.logger.debug("POST request initiated for route %s", route)
         response = self.http.post(
             url=url,
             json=params,
@@ -208,7 +208,7 @@ class BaseRouter(BaseDuneClient):
     def _patch(self, route: str, params: Any) -> Any:
         """Generic interface for the PATCH method of a Dune API request"""
         url = self._route_url(route)
-        self.logger.debug(f"PATCH received input url={url}, params={params}")
+        self.logger.debug("PATCH request initiated for route %s", route)
         response = self.http.patch(
             url=url,
             json=params,
