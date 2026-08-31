@@ -1,4 +1,4 @@
-""" "
+"""
 Async Dune Client Class responsible for refreshing Dune Queries
 Framework built on Dune's API Documentation
 https://docs.dune.com/api-reference/overview/introduction
@@ -113,7 +113,7 @@ class AsyncDuneClient(BaseDuneClient):
         try:
             # Some responses can be decoded and converted to DuneErrors
             response_json = await response.json()
-            self.logger.debug("Received a JSON response with status %s", response.status)
+            self.logger.debug("Received response with status code %s", response.status)
         except ContentTypeError as err:
             # Others can't. Only raise HTTP error for not decodable errors
             response.raise_for_status()
@@ -166,7 +166,7 @@ class AsyncDuneClient(BaseDuneClient):
         target = self._route_url(route=route, url=url) if route or url else None
         if target is None:
             raise ValueError("Either route or url must be provided")
-        self.logger.debug(f"{method} received input target={target}")
+        self.logger.debug("%s request initiated for target %s", method, target)
 
         attempt = 0
         delay = self._retry_backoff
@@ -755,3 +755,4 @@ class AsyncDuneClient(BaseDuneClient):
         while results.next_uri is not None:
             results += await fetch_next(results.next_uri)
         return results
+```[cite: 12]
