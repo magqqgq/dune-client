@@ -228,5 +228,3 @@ class BaseRouter(BaseDuneClient):
         )
         return self._handle_response(response)
 ```[cite: 11]
-
----
