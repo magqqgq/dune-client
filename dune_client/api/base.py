@@ -1,4 +1,4 @@
-""" "
+"""
 Basic Dune Client Class responsible for refreshing Dune Queries
 Framework built on Dune's API Documentation
 https://docs.dune.com/api-reference/overview/introduction
@@ -144,7 +144,7 @@ class BaseRouter(BaseDuneClient):
         try:
             # Some responses can be decoded and converted to DuneErrors
             response_json = response.json()
-            self.logger.debug("Received a JSON response with status %s", response.status_code)
+            self.logger.debug("Received response with status code %s", response.status_code)
         except JSONDecodeError as err:
             # Others can't. Only raise HTTP error for not decodable errors
             response.raise_for_status()
@@ -174,7 +174,7 @@ class BaseRouter(BaseDuneClient):
     ) -> Any:
         """Generic interface for the GET method of a Dune API request"""
         final_url = self._route_url(route=route, url=url)
-        self.logger.debug(f"GET received input url={final_url}")
+        self.logger.debug("GET request initiated for URL %s", final_url)
 
         response = self.http.get(
             url=final_url,
@@ -220,7 +220,7 @@ class BaseRouter(BaseDuneClient):
     def _delete(self, route: str) -> Any:
         """Generic interface for the DELETE method of a Dune API request"""
         url = self._route_url(route)
-        self.logger.debug(f"DELETE received input url={url}")
+        self.logger.debug("DELETE request initiated for route %s", route)
         response = self.http.delete(
             url=url,
             headers=self.default_headers(),
