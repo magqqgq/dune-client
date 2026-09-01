@@ -113,6 +113,7 @@ class AsyncDuneClient(BaseDuneClient):
         try:
             # Some responses can be decoded and converted to DuneErrors
             response_json = await response.json()
+            # SECURITY: Log status code only to prevent leaking full response body into logs (CWE-532)
             self.logger.debug("Received response with status code %s", response.status)
         except ContentTypeError as err:
             # Others can't. Only raise HTTP error for not decodable errors
@@ -166,6 +167,7 @@ class AsyncDuneClient(BaseDuneClient):
         target = self._route_url(route=route, url=url) if route or url else None
         if target is None:
             raise ValueError("Either route or url must be provided")
+        # SECURITY: Do not log request parameters, query payloads, or request bodies (CWE-532)
         self.logger.debug("%s request initiated for target %s", method, target)
 
         attempt = 0
