@@ -755,4 +755,3 @@ class AsyncDuneClient(BaseDuneClient):
         while results.next_uri is not None:
             results += await fetch_next(results.next_uri)
         return results
-```[cite: 12]
