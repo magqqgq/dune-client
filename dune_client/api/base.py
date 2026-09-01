@@ -227,4 +227,3 @@ class BaseRouter(BaseDuneClient):
             timeout=self.request_timeout,
         )
         return self._handle_response(response)
-```[cite: 11]
